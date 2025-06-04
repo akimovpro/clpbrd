@@ -1,3 +1,3 @@
-extension String: @retroactive Identifiable {
+extension String: Identifiable {
   public var id: Self { self }
 }
