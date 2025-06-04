@@ -203,4 +203,8 @@ class AppState: Sendable {
   func quit() {
     NSApp.terminate(self)
   }
+
+  func toggleAI() {
+    Defaults[.aiEnabled].toggle()
+  }
 }
