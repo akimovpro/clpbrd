@@ -2,6 +2,9 @@ import SwiftUI
 import Defaults
 
 struct AdvancedSettingsPane: View {
+  @Default(.openAIKey) private var openAIKey
+  @Default(.openAIPrompt) private var openAIPrompt
+
   var body: some View {
     VStack(alignment: .leading) {
       Defaults.Toggle(key: .ignoreEvents) {
@@ -37,6 +40,15 @@ struct AdvancedSettingsPane: View {
       Defaults.Toggle(key: .clearSystemClipboard) {
         Text("ClearSystemClipboard", tableName: "AdvancedSettings")
       }.help(Text("ClearSystemClipboardTooltip", tableName: "AdvancedSettings"))
+
+      HStack {
+        Text("OpenAIAPIKey", tableName: "AdvancedSettings")
+        TextField("", text: $openAIKey)
+      }
+      HStack {
+        Text("Prompt", tableName: "AdvancedSettings")
+        TextField("", text: $openAIPrompt)
+      }
     }
     .frame(minWidth: 350, maxWidth: 450)
     .padding()
