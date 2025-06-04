@@ -110,6 +110,13 @@ to speed it up, you can change it with `defaults`:
 defaults write org.p0deje.Maccy clipboardCheckInterval 0.1 # 100 ms
 ```
 
+### AI Clipboard Processing
+
+Maccy can send copied text to OpenAI. Enable this in preferences and provide
+your API key and a prompt in the **Advanced** pane. When turned on, text
+copies will be transformed by the GPT model before being put back on the
+clipboard.
+
 ## FAQ
 
 ### Why doesn't it paste when I select an item in history?
@@ -162,3 +169,4 @@ Also, I wanted to learn Swift and get acquainted with macOS application developm
 ## License
 
 [MIT](./LICENSE)
+
