@@ -243,6 +243,13 @@ class ClipboardTests: XCTestCase {
     XCTAssertNil(pasteboard.data(forType: .rtf))
   }
 
+  @MainActor
+  func testCopyStringMarksFromMaccy() {
+    clipboard.copy("foo")
+    XCTAssertEqual(pasteboard.string(forType: .string), "foo")
+    XCTAssertEqual(pasteboard.string(forType: .fromMaccy), "")
+  }
+
   func testHandlesItemsWithoutData() {
     let hookExpectation = expectation(description: "Hook is called")
     pasteboard.clearContents()
