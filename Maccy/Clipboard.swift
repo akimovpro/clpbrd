@@ -66,6 +66,9 @@ class Clipboard {
   func copy(_ string: String) {
     pasteboard.clearContents()
     pasteboard.setString(string, forType: .string)
+    // Mark that the copy originates from Maccy so that it's not processed
+    // by AI again on the next clipboard change check.
+    pasteboard.setString("", forType: .fromMaccy)
     sync()
     checkForChangesInPasteboard()
   }
