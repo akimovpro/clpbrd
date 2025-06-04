@@ -83,11 +83,11 @@ class Footer {
       }
     ]
 
-    Task { await updateAIToggle() }
+    Task { @MainActor in updateAIToggle() }
 
-    Task {
+    Task { @MainActor in
       for await value in Defaults.updates(.aiEnabled) {
-        await updateAIToggle(value)
+        updateAIToggle(value)
       }
     }
   }
