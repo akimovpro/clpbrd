@@ -230,10 +230,15 @@ class Clipboard {
        let text = pasteboard.string(forType: .string) {
       let prompt = Defaults[.openAIPrompt]
       Task {
+        await MainActor.run { AppState.shared.aiRequestRunning = true }
         do {
           let result = try await OpenAI.chat(prompt: prompt, text: text, apiKey: Defaults[.openAIKey])
-          Clipboard.shared.copy(result)
+          await MainActor.run {
+            AppState.shared.aiRequestRunning = false
+            Clipboard.shared.copy(result)
+          }
         } catch {
+          await MainActor.run { AppState.shared.aiRequestRunning = false }
           NSLog("Failed to process AI: \(error)")
         }
       }

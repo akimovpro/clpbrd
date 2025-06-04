@@ -6,6 +6,9 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
   var panel: FloatingPanel<ContentView>!
 
+  private var aiBlinkTimer: Timer?
+  private var aiBlinkState = false
+
   @objc
   private lazy var statusItem: NSStatusItem = {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -65,6 +68,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     synchronizeMenuIconText()
+    synchronizeAIBlinking()
     Task {
       for await value in Defaults.updates(.showRecentCopyInMenuBar) {
         if value {
@@ -167,6 +171,37 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.synchronizeMenuIconText()
       }
     }
+  }
+
+  private func synchronizeAIBlinking() {
+    _ = withObservationTracking {
+      AppState.shared.aiRequestRunning
+    } onChange: {
+      DispatchQueue.main.async {
+        if AppState.shared.aiRequestRunning {
+          self.startAIBlinking()
+        } else {
+          self.stopAIBlinking()
+        }
+        self.synchronizeAIBlinking()
+      }
+    }
+  }
+
+  private func startAIBlinking() {
+    guard aiBlinkTimer == nil else { return }
+    aiBlinkState = false
+    aiBlinkTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+      guard let button = self.statusItem.button else { return }
+      self.aiBlinkState.toggle()
+      button.alphaValue = self.aiBlinkState ? 0.3 : 1.0
+    }
+  }
+
+  private func stopAIBlinking() {
+    aiBlinkTimer?.invalidate()
+    aiBlinkTimer = nil
+    statusItem.button?.alphaValue = 1.0
   }
 
   private func disableUnusedGlobalHotkeys() {

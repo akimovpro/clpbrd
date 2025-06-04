@@ -12,6 +12,8 @@ final class AppState: @unchecked Sendable {
   var history: History
   var footer: Footer
 
+  var aiRequestRunning: Bool = false
+
   var scrollTarget: UUID?
   var selection: UUID? {
     didSet {
