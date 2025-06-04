@@ -232,7 +232,7 @@ class Clipboard {
       Task {
         do {
           let result = try await OpenAI.chat(prompt: prompt, text: text, apiKey: Defaults[.openAIKey])
-          await Clipboard.shared.copy(result)
+          Clipboard.shared.copy(result)
         } catch {
           NSLog("Failed to process AI: \(error)")
         }
