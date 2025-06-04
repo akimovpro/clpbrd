@@ -9,6 +9,7 @@ struct HeaderView: View {
   @Environment(\.scenePhase) private var scenePhase
 
   @Default(.showTitle) private var showTitle
+  @Default(.aiEnabled) private var aiEnabled
 
   var body: some View {
     HStack {
@@ -25,6 +26,16 @@ struct HeaderView: View {
             searchQuery = ""
           }
         }
+
+      Button {
+        appState.toggleAI()
+      } label: {
+        Image(systemName: aiEnabled ? "sparkles" : "sparkles.slash")
+          .frame(width: 11, height: 11)
+          .padding(.leading, 5)
+      }
+      .buttonStyle(PlainButtonStyle())
+      .help(LocalizedStringKey(aiEnabled ? "ai_disable_tooltip" : "ai_enable_tooltip"))
     }
     .frame(height: appState.searchVisible ? 25 : 0)
     .opacity(appState.searchVisible ? 1 : 0)

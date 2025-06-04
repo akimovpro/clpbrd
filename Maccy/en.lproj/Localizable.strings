@@ -28,3 +28,7 @@
 "system_settings_pane" = "Privacy & Security settings";
 "system_preferences_name" = "System Preferences";
 "system_preferences_pane" = "Security & Privacy preferences";
+"ai_enable" = "Enable AI";
+"ai_disable" = "Disable AI";
+"ai_enable_tooltip" = "Enable AI features.";
+"ai_disable_tooltip" = "Disable AI features.";
