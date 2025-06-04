@@ -3,8 +3,21 @@ import UserNotifications
 
 class Notifier {
   private static var center: UNUserNotificationCenter { UNUserNotificationCenter.current() }
+  private static var isAuthorizationRequested = false
+
+  private static var shouldSkipNotifications: Bool {
+    let env = ProcessInfo.processInfo.environment
+    return CommandLine.arguments.contains("enable-testing") ||
+      env["CI"] != nil ||
+      env["MACCY_DISABLE_NOTIFICATIONS"] != nil
+  }
 
   static func authorize() {
+    guard !isAuthorizationRequested else { return }
+    isAuthorizationRequested = true
+
+    guard !shouldSkipNotifications else { return }
+
     center.requestAuthorization(options: [.alert, .sound]) { _, error in
       if error != nil {
         NSLog("Failed to authorize notifications: \(String(describing: error))")
@@ -13,7 +26,7 @@ class Notifier {
   }
 
   static func notify(body: String?, sound: NSSound?) {
-    guard let body else { return }
+    guard let body, !shouldSkipNotifications else { return }
 
     authorize()
 
