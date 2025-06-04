@@ -223,9 +223,9 @@ class Clipboard {
     if Defaults[.aiEnabled],
        !Defaults[.openAIKey].isEmpty,
        !Defaults[.openAIPrompt].isEmpty,
-       let prompt = Defaults[.openAIPrompt],
        !(pasteboard.types?.contains(.fromMaccy) ?? false),
        let text = pasteboard.string(forType: .string) {
+      let prompt = Defaults[.openAIPrompt]
       Task {
         do {
           let result = try await OpenAI.chat(prompt: prompt, text: text, apiKey: Defaults[.openAIKey])
