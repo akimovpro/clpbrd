@@ -218,6 +218,23 @@ class Clipboard {
     historyItem.title = historyItem.generateTitle()
 
     onNewCopyHooks.forEach({ $0(historyItem) })
+
+    // AI processing
+    if Defaults[.aiEnabled],
+       !Defaults[.openAIKey].isEmpty,
+       !Defaults[.openAIPrompt].isEmpty,
+       let prompt = Defaults[.openAIPrompt],
+       !(pasteboard.types?.contains(.fromMaccy) ?? false),
+       let text = pasteboard.string(forType: .string) {
+      Task {
+        do {
+          let result = try await OpenAI.chat(prompt: prompt, text: text, apiKey: Defaults[.openAIKey])
+          await Clipboard.shared.copy(result)
+        } catch {
+          NSLog("Failed to process AI: \(error)")
+        }
+      }
+    }
   }
 
   private func shouldIgnore(_ types: Set<NSPasteboard.PasteboardType>) -> Bool {
