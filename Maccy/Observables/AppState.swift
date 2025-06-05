@@ -2,6 +2,7 @@ import AppKit
 import Defaults
 import Foundation
 import Settings
+import Observation
 
 @Observable
 final class AppState: @unchecked Sendable {
