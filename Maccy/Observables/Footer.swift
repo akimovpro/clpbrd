@@ -1,4 +1,5 @@
 import Defaults
+import KeyboardShortcuts
 import SwiftUI
 
 @Observable
@@ -21,6 +22,7 @@ class Footer {
   init() { // swiftlint:disable:this function_body_length
     aiItem = FooterItem(
       title: Defaults[.aiEnabled] ? "ai_disable" : "ai_enable",
+      shortcuts: [KeyShortcut(key: .a, modifierFlags: [.command, .option])],
       help: Defaults[.aiEnabled] ? "ai_disable_tooltip" : "ai_enable_tooltip"
     ) {
       AppState.shared.toggleAI()
@@ -82,6 +84,10 @@ class Footer {
         AppState.shared.quit()
       }
     ]
+
+    KeyboardShortcuts.onKeyUp(for: .toggleAI) {
+      AppState.shared.toggleAI()
+    }
 
     Task { @MainActor in updateAIToggle() }
 
