@@ -28,6 +28,7 @@ Maccy works on macOS Sonoma 14 or higher.
 * [Translations](#translations)
 * [Motivation](#motivation)
 * [License](#license)
+* [Development](#development)
 
 <!-- vim-markdown-toc -->
 
@@ -158,6 +159,15 @@ but I couldn't. So I've decided to build one.
 
 Also, I wanted to learn Swift and get acquainted with macOS application development.
 
+## Development
+
+If Xcode shows `Missing package product 'Sparkle'` or similar errors, resolve the Swift package dependencies first:
+
+```sh
+xcodebuild -resolvePackageDependencies
+```
+
+Alternatively, open the project in Xcode and use **File > Packages > Resolve Package Versions**.
 
 ## License
 
