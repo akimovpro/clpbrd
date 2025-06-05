@@ -226,15 +226,12 @@ class Clipboard {
     if Defaults[.aiEnabled],
        !Defaults[.openAIKey].isEmpty,
        !Defaults[.openAIPrompts].isEmpty,
-       !(pasteboard.types?.contains(.fromMaccy) ?? false),
-       let text = pasteboard.string(forType: .string) {
+       !(pasteboard.types?.contains(.fromMaccy) ?? false) {
       let prompts = Defaults[.openAIPrompts]
       let index = Defaults[.activePromptIndex]
       guard prompts.indices.contains(index) else { return }
       let prompt = prompts[index]
-       !Defaults[.openAIPrompt].isEmpty,
-       !(pasteboard.types?.contains(.fromMaccy) ?? false) {
-      let prompt = Defaults[.openAIPrompt]
+
       if let text = pasteboard.string(forType: .string) {
         Task {
           await MainActor.run { AppState.shared.aiRequestRunning = true }
@@ -243,6 +240,7 @@ class Clipboard {
             await MainActor.run {
               AppState.shared.aiRequestRunning = false
               Clipboard.shared.copy(result)
+              Notifier.notify(body: result.shortened(to: 100), sound: .write)
             }
           } catch {
             await MainActor.run { AppState.shared.aiRequestRunning = false }
@@ -272,15 +270,6 @@ class Clipboard {
           } catch {
             await MainActor.run { AppState.shared.aiRequestRunning = false }
             NSLog("Failed to process AI: \(error)")
-      Task {
-        await MainActor.run { AppState.shared.aiRequestRunning = true }
-        do {
-          let result = try await OpenAI.chat(prompt: prompt, text: text, apiKey: Defaults[.openAIKey])
-          await MainActor.run {
-            AppState.shared.aiRequestRunning = false
-            Clipboard.shared.copy(result)
-            Notifier.notify(body: result.shortened(to: 100), sound: .write
-                       master
           }
         }
       }

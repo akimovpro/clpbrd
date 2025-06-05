@@ -3,7 +3,6 @@ import Defaults
 
 struct AdvancedSettingsPane: View {
   @Default(.openAIKey) private var openAIKey
-  @Default(.openAIPrompt) private var openAIPrompt
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -44,11 +43,6 @@ struct AdvancedSettingsPane: View {
       HStack {
         Text("OpenAIAPIKey", tableName: "AdvancedSettings")
         TextField("", text: $openAIKey)
-      }
-      HStack(alignment: .top) {
-        Text("Prompt", tableName: "AdvancedSettings")
-        TextEditor(text: $openAIPrompt)
-          .frame(height: 100)
       }
     }
     .frame(minWidth: 350, maxWidth: 450)
