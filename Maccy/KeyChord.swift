@@ -29,6 +29,7 @@ enum KeyChord: CaseIterable {
   case moveToPrevious
   case moveToFirst
   case openPreferences
+  case toggleAI
   case pinOrUnpin
   case selectCurrentItem
   case close
@@ -97,6 +98,8 @@ enum KeyChord: CaseIterable {
       self = .pinOrUnpin
     case (.comma, [.command]):
       self = .openPreferences
+    case (.a, [.command, .option]):
+      self = .toggleAI
     case (.return, _),
          (.keypadEnter, _):
       self = .selectCurrentItem

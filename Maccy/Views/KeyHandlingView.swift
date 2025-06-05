@@ -96,6 +96,9 @@ struct KeyHandlingView<Content: View>: View {
         case .openPreferences:
           appState.openPreferences()
           return .handled
+        case .toggleAI:
+          appState.toggleAI()
+          return .handled
         case .pinOrUnpin:
           appState.history.togglePin(appState.history.selectedItem)
           return .handled
