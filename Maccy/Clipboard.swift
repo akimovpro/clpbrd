@@ -225,6 +225,13 @@ class Clipboard {
     // AI processing
     if Defaults[.aiEnabled],
        !Defaults[.openAIKey].isEmpty,
+       !Defaults[.openAIPrompts].isEmpty,
+       !(pasteboard.types?.contains(.fromMaccy) ?? false),
+       let text = pasteboard.string(forType: .string) {
+      let prompts = Defaults[.openAIPrompts]
+      let index = Defaults[.activePromptIndex]
+      guard prompts.indices.contains(index) else { return }
+      let prompt = prompts[index]
        !Defaults[.openAIPrompt].isEmpty,
        !(pasteboard.types?.contains(.fromMaccy) ?? false) {
       let prompt = Defaults[.openAIPrompt]

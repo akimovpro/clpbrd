@@ -60,5 +60,20 @@ extension Defaults.Keys {
   static let showApplicationIcons = Key<Bool>("showApplicationIcons", default: false)
   static let aiEnabled = Key<Bool>("aiEnabled", default: false)
   static let openAIKey = Key<String>("openAIKey", default: "")
-  static let openAIPrompt = Key<String>("openAIPrompt", default: "")
+  static let openAIPrompts = Key<[String]>(
+    "openAIPrompts",
+    default: [
+      "Summarize the copied text in 3 sentences.\nFocus on key facts only.",
+      "Translate the copied text to Spanish.\nKeep formatting as close as possible.",
+      "List main ideas as bullet points.\nUse one short phrase per bullet.",
+      "Explain the meaning in simple terms.\nAvoid jargon or complex vocabulary.",
+      "Rewrite the text to be more formal.\nRemove any casual expressions.",
+      "Condense the text into one paragraph.\nKeep critical details intact.",
+      "Generate a short title for the text.\nReturn just the title.",
+      "Correct grammar mistakes in the text.\nDon't change its tone.",
+      "Explain the text as if to a child.\nUse analogies where helpful.",
+      "Create an outline of key points.\nUse numbered sections."
+    ]
+  )
+  static let activePromptIndex = Key<Int>("activePromptIndex", default: 0)
 }
