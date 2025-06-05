@@ -251,25 +251,17 @@ class Clipboard {
                     ?? pasteboard.data(forType: .tiff)
                     ?? pasteboard.data(forType: .jpeg)
                     ?? pasteboard.data(forType: .heic) {
-        var pngData = data
-        if let image = NSImage(data: data),
-           let tiff = image.tiffRepresentation,
-           let bitmap = NSBitmapImageRep(data: tiff),
-           let converted = bitmap.representation(using: .png, properties: [:]) {
-          pngData = converted
-        }
-
         Task {
           await MainActor.run { AppState.shared.aiRequestRunning = true }
           do {
-            let result = try await OpenAI.chat(prompt: prompt, imageData: pngData, apiKey: Defaults[.openAIKey])
+            let text = try await TextRecognition.recognize(imageData: data)
             await MainActor.run {
               AppState.shared.aiRequestRunning = false
-              Clipboard.shared.copy(result)
+              Clipboard.shared.copy(text)
             }
           } catch {
             await MainActor.run { AppState.shared.aiRequestRunning = false }
-            NSLog("Failed to process AI: \(error)")
+            NSLog("Failed to recognize text: \(error)")
           }
         }
       }
