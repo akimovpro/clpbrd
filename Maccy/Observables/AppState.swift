@@ -13,7 +13,7 @@ final class AppState: @unchecked Sendable {
   var history: History
   var footer: Footer
   @ObservationIgnored
-  var prompts = Prompts()
+  var prompts: Prompts = .init()
 
   var aiRequestRunning: Bool = false
 
