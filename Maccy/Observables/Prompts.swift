@@ -3,7 +3,7 @@ import KeyboardShortcuts
 import Observation
 
 @Observable
-class Prompts {
+final class Prompts {
   init() {
     KeyboardShortcuts.onKeyUp(for: .prompt1) { Defaults[.activePromptIndex] = 0 }
     KeyboardShortcuts.onKeyUp(for: .prompt2) { Defaults[.activePromptIndex] = 1 }

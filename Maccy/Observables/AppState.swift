@@ -12,7 +12,8 @@ final class AppState: @unchecked Sendable {
   var popup: Popup
   var history: History
   var footer: Footer
-  var prompts: Prompts
+  @ObservationIgnored
+  var prompts = Prompts()
 
   var aiRequestRunning: Bool = false
 
@@ -67,7 +68,6 @@ final class AppState: @unchecked Sendable {
     history = History.shared
     footer = Footer()
     popup = Popup()
-    prompts = Prompts()
   }
 
   @MainActor
@@ -194,7 +194,7 @@ final class AppState: @unchecked Sendable {
           Settings.Pane(
             identifier: Settings.PaneIdentifier.prompts,
             title: NSLocalizedString("Title", tableName: "PromptsSettings", comment: ""),
-            toolbarIcon: NSImage.text.justify!
+            toolbarIcon: NSImage.textJustify!
           ) {
             PromptsSettingsPane()
           },
