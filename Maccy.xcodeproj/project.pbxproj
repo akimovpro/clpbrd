@@ -128,7 +128,8 @@
                 5BF0FFC405D1FF7911237E6F /* OpenAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2027135ABADDF4D6ADD3AE86 /* OpenAI.swift */; };
                 404D6208C516203D6E699CAA /* PromptsSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602E448F58A1F5B95BD72D8E /* PromptsSettingsPane.swift */; };
                 DB05BED6EBDFC349481C1D69 /* PromptsSettings.strings in Resources */ = {isa = PBXBuildFile; fileRef = E604C9B101C574607C49B68B /* PromptsSettings.strings */; };
-                E8FAAD7F8886588258B77B3F /* Prompts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EB700F0DA5846E2742505 /* Prompts.swift */; };
+               E8FAAD7F8886588258B77B3F /* Prompts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EB700F0DA5846E2742505 /* Prompts.swift */; };
+               A2B714835E924FA2969B02F0 /* TextRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F055CB9B89464580E7C425 /* TextRecognition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -482,7 +483,8 @@
 		DAE2850123225BD90080E394 /* ColorImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorImageTests.swift; sourceTree = "<group>"; };
                DAE8F5D32C43262B00851CA9 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
                7F2EB700F0DA5846E2742505 /* Prompts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prompts.swift; sourceTree = "<group>"; };
-		DAEE38431E3DBEB100DD2966 /* Maccy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maccy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+               85F055CB9B89464580E7C425 /* TextRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognition.swift; sourceTree = "<group>"; };
+               DAEE38431E3DBEB100DD2966 /* Maccy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maccy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAEE38461E3DBEB100DD2966 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DAEE384D1E3DBEB100DD2966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAF4741E27BB568000B53057 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -747,8 +749,9 @@
 				2FB5BC9F2CD8F73C008B33F4 /* ApplicationImage.swift */,
 				DA555F072CF0F98F009608BD /* ApplicationImageCache.swift */,
 				DA0EF1871E444B2A00E58577 /* Clipboard.swift */,
-				DAE284FF232257D20080E394 /* ColorImage.swift */,
-				DAA54BF92C3C951900B7FDD8 /* FloatingPanel.swift */,
+                               DAE284FF232257D20080E394 /* ColorImage.swift */,
+                               85F055CB9B89464580E7C425 /* TextRecognition.swift */,
+                               DAA54BF92C3C951900B7FDD8 /* FloatingPanel.swift */,
 				DA689FC92C1D18890009B887 /* HighlightMatch.swift */,
 				DA1969202C3F6C6800258481 /* HistoryItemAction.swift */,
 				DABDE97E2974706C005B32E9 /* KeyboardLayout.swift */,
@@ -1060,9 +1063,10 @@
 				2F8B9DE62C5D6E5D0046EF69 /* NSPoint+DefaultsSerializable.swift in Sources */,
 				DAA072D72C41C574006DDFD2 /* AppState.swift in Sources */,
 				DA9C3C5E2C20E1190056795D /* IgnoreApplicationsSettingsView.swift in Sources */,
-                                DA20FA722B082DD600056DD5 /* Notifier.swift in Sources */,
-                                5BF0FFC405D1FF7911237E6F /* OpenAI.swift in Sources */,
-                                DAA072DB2C41C5DD006DDFD2 /* FooterItem.swift in Sources */,
+                               DA20FA722B082DD600056DD5 /* Notifier.swift in Sources */,
+                               5BF0FFC405D1FF7911237E6F /* OpenAI.swift in Sources */,
+                               A2B714835E924FA2969B02F0 /* TextRecognition.swift in Sources */,
+                               DAA072DB2C41C5DD006DDFD2 /* FooterItem.swift in Sources */,
 				DA689FC62C1D14F10009B887 /* PopupPosition.swift in Sources */,
 				DA49EE7528B59468002752E0 /* NSRect+Centered.swift in Sources */,
 				DA9C3C602C20E1890056795D /* IgnorePasteboardTypesSettingsView.swift in Sources */,
