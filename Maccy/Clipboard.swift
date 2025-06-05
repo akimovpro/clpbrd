@@ -236,6 +236,7 @@ class Clipboard {
           await MainActor.run {
             AppState.shared.aiRequestRunning = false
             Clipboard.shared.copy(result)
+            Notifier.notify(body: result.shortened(to: 100), sound: .write)
           }
         } catch {
           await MainActor.run { AppState.shared.aiRequestRunning = false }
