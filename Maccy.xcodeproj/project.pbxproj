@@ -126,6 +126,9 @@
 		DAFE2DE9268A9B1B00990986 /* HistoryItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE2DE8268A9B1B00990986 /* HistoryItemTests.swift */; };
                 DAFEF0B8249D7DEE006029E8 /* KeyboardShortcuts.Name+Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEF0B7249D7DEE006029E8 /* KeyboardShortcuts.Name+Shortcuts.swift */; };
                 5BF0FFC405D1FF7911237E6F /* OpenAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2027135ABADDF4D6ADD3AE86 /* OpenAI.swift */; };
+                404D6208C516203D6E699CAA /* PromptsSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602E448F58A1F5B95BD72D8E /* PromptsSettingsPane.swift */; };
+                DB05BED6EBDFC349481C1D69 /* PromptsSettings.strings in Resources */ = {isa = PBXBuildFile; fileRef = E604C9B101C574607C49B68B /* PromptsSettings.strings */; };
+                E8FAAD7F8886588258B77B3F /* Prompts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EB700F0DA5846E2742505 /* Prompts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -403,9 +406,11 @@
 		DAA072E62C423617006DDFD2 /* NSSize+DefaultsSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSize+DefaultsSerializable.swift"; sourceTree = "<group>"; };
 		DAA072E82C42C6AA006DDFD2 /* ListItemTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTitleView.swift; sourceTree = "<group>"; };
 		DAA2BDCE24676CA7007FE090 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		DAA365CD2C4BF9DD00A394F8 /* PinsSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinsSettingsPane.swift; sourceTree = "<group>"; };
-		DAA365D02C4C147400A394F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PinsSettings.strings; sourceTree = "<group>"; };
-		DAA365D22C4C147C00A394F8 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/PinsSettings.strings; sourceTree = "<group>"; };
+                DAA365CD2C4BF9DD00A394F8 /* PinsSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinsSettingsPane.swift; sourceTree = "<group>"; };
+                602E448F58A1F5B95BD72D8E /* PromptsSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptsSettingsPane.swift; sourceTree = "<group>"; };
+                DAA365D02C4C147400A394F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PinsSettings.strings; sourceTree = "<group>"; };
+                E604C9B101C574607C49B68B /* PromptsSettings.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PromptsSettings.strings; sourceTree = "<group>"; };
+                DAA365D22C4C147C00A394F8 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/PinsSettings.strings; sourceTree = "<group>"; };
 		DAA365D32C4C147D00A394F8 /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bs; path = bs.lproj/PinsSettings.strings; sourceTree = "<group>"; };
 		DAA365D42C4C147E00A394F8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PinsSettings.strings"; sourceTree = "<group>"; };
 		DAA365D52C4C147F00A394F8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/PinsSettings.strings"; sourceTree = "<group>"; };
@@ -596,12 +601,14 @@
 				DA9C3C482C20D4B40056795D /* IgnoreSettings.strings */,
 				DA44C5E32C1C858400819834 /* StorageSettingsPane.swift */,
 				DA689FAE2C1CD3B00009B887 /* StorageSettings.strings */,
-				DAA365CD2C4BF9DD00A394F8 /* PinsSettingsPane.swift */,
-				DAA365CF2C4C147400A394F8 /* PinsSettings.strings */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
+                                DAA365CD2C4BF9DD00A394F8 /* PinsSettingsPane.swift */,
+                                DAA365CF2C4C147400A394F8 /* PinsSettings.strings */,
+                                602E448F58A1F5B95BD72D8E /* PromptsSettingsPane.swift */,
+                                E604C9B101C574607C49B68B /* PromptsSettings.strings */,
+                        );
+                        path = Settings;
+                        sourceTree = "<group>";
+                };
 		DA19690C2C3EEF9300258481 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,11 +667,12 @@
 				DA3BCB912C3EEC3C00B01BC1 /* History.swift */,
 				DA3BCB932C3EECBB00B01BC1 /* HistoryItemDecorator.swift */,
 				DA3BCB8D2C3E015000B01BC1 /* ModifierFlags.swift */,
-				DAE8F5D32C43262B00851CA9 /* Popup.swift */,
-			);
-			path = Observables;
-			sourceTree = "<group>";
-		};
+                                DAE8F5D32C43262B00851CA9 /* Popup.swift */,
+                                7F2EB700F0DA5846E2742505 /* Prompts.swift */,
+                        );
+                        path = Observables;
+                        sourceTree = "<group>";
+                };
 		DA48AE852A5F0077006D4894 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -941,8 +949,9 @@
 			files = (
 				DA20FA762B082E0800056DD5 /* Write.caf in Resources */,
 				DA6373981E4AB9BB00263391 /* Assets.xcassets in Resources */,
-				DAA365D12C4C147400A394F8 /* PinsSettings.strings in Resources */,
-				DA689FCF2C1DEE570009B887 /* AppearanceSettings.strings in Resources */,
+                                DAA365D12C4C147400A394F8 /* PinsSettings.strings in Resources */,
+                                DB05BED6EBDFC349481C1D69 /* PromptsSettings.strings in Resources */,
+                                DA689FCF2C1DEE570009B887 /* AppearanceSettings.strings in Resources */,
 				4762D6972467226100B3A2BA /* Localizable.strings in Resources */,
 				DA009934256411F90030E697 /* LICENSE in Resources */,
 				DA20FA742B082E0100056DD5 /* Knock.caf in Resources */,
@@ -1005,8 +1014,9 @@
 				DA689FC82C1D15140009B887 /* PinsPosition.swift in Sources */,
 				DA13D7D92C1A223E00FA9E23 /* Get.swift in Sources */,
 				DA1969182C3F327500258481 /* SearchFieldView.swift in Sources */,
-				DAE8F5D42C43262B00851CA9 /* Popup.swift in Sources */,
-				DA13D7DA2C1A223E00FA9E23 /* Clear.swift in Sources */,
+                                DAE8F5D42C43262B00851CA9 /* Popup.swift in Sources */,
+                                E8FAAD7F8886588258B77B3F /* Prompts.swift in Sources */,
+                                DA13D7DA2C1A223E00FA9E23 /* Clear.swift in Sources */,
 				DA13D7DB2C1A223E00FA9E23 /* Delete.swift in Sources */,
 				DA19691F2C3F5F0600258481 /* KeyHandlingView.swift in Sources */,
 				DA13D7DC2C1A223E00FA9E23 /* HistoryItemAppEntity.swift in Sources */,
@@ -1065,8 +1075,9 @@
 				DA0FFA2A2C8D100C00A66C97 /* ModifierFlags+Description.swift in Sources */,
 				DAEE38471E3DBEB100DD2966 /* AppDelegate.swift in Sources */,
 				DAA072DF2C41C63C006DDFD2 /* ConfirmationView.swift in Sources */,
-				DAA365CE2C4BF9DD00A394F8 /* PinsSettingsPane.swift in Sources */,
-				DA3BCB8E2C3E015000B01BC1 /* ModifierFlags.swift in Sources */,
+                                DAA365CE2C4BF9DD00A394F8 /* PinsSettingsPane.swift in Sources */,
+                                404D6208C516203D6E699CAA /* PromptsSettingsPane.swift in Sources */,
+                                DA3BCB8E2C3E015000B01BC1 /* ModifierFlags.swift in Sources */,
 				DA181177247D14DA00066D55 /* Settings.PaneIdentifier+Panes.swift in Sources */,
 				DA3BCB942C3EECBB00B01BC1 /* HistoryItemDecorator.swift in Sources */,
 				DAE28500232257D20080E394 /* ColorImage.swift in Sources */,

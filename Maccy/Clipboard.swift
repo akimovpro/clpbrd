@@ -225,10 +225,13 @@ class Clipboard {
     // AI processing
     if Defaults[.aiEnabled],
        !Defaults[.openAIKey].isEmpty,
-       !Defaults[.openAIPrompt].isEmpty,
+       !Defaults[.openAIPrompts].isEmpty,
        !(pasteboard.types?.contains(.fromMaccy) ?? false),
        let text = pasteboard.string(forType: .string) {
-      let prompt = Defaults[.openAIPrompt]
+      let prompts = Defaults[.openAIPrompts]
+      let index = Defaults[.activePromptIndex]
+      guard prompts.indices.contains(index) else { return }
+      let prompt = prompts[index]
       Task {
         await MainActor.run { AppState.shared.aiRequestRunning = true }
         do {
