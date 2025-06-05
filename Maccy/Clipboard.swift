@@ -265,6 +265,15 @@ class Clipboard {
           } catch {
             await MainActor.run { AppState.shared.aiRequestRunning = false }
             NSLog("Failed to process AI: \(error)")
+      Task {
+        await MainActor.run { AppState.shared.aiRequestRunning = true }
+        do {
+          let result = try await OpenAI.chat(prompt: prompt, text: text, apiKey: Defaults[.openAIKey])
+          await MainActor.run {
+            AppState.shared.aiRequestRunning = false
+            Clipboard.shared.copy(result)
+            Notifier.notify(body: result.shortened(to: 100), sound: .write
+                       master
           }
         }
       }
