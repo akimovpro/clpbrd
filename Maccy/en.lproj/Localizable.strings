@@ -30,5 +30,5 @@
 "system_preferences_pane" = "Security & Privacy preferences";
 "ai_enable" = "Enable AI";
 "ai_disable" = "Disable AI";
-"ai_enable_tooltip" = "Enable AI features.";
-"ai_disable_tooltip" = "Disable AI features.";
+"ai_enable_tooltip" = "Enable AI features (⌘⌥A).";
+"ai_disable_tooltip" = "Disable AI features (⌘⌥A).";
