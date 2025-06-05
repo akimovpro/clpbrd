@@ -45,9 +45,10 @@ struct AdvancedSettingsPane: View {
         Text("OpenAIAPIKey", tableName: "AdvancedSettings")
         TextField("", text: $openAIKey)
       }
-      HStack {
+      HStack(alignment: .top) {
         Text("Prompt", tableName: "AdvancedSettings")
-        TextField("", text: $openAIPrompt)
+        TextEditor(text: $openAIPrompt)
+          .frame(height: 100)
       }
     }
     .frame(minWidth: 350, maxWidth: 450)
