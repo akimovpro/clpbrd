@@ -226,9 +226,45 @@ class Clipboard {
     if Defaults[.aiEnabled],
        !Defaults[.openAIKey].isEmpty,
        !Defaults[.openAIPrompt].isEmpty,
-       !(pasteboard.types?.contains(.fromMaccy) ?? false),
-       let text = pasteboard.string(forType: .string) {
+       !(pasteboard.types?.contains(.fromMaccy) ?? false) {
       let prompt = Defaults[.openAIPrompt]
+      if let text = pasteboard.string(forType: .string) {
+        Task {
+          await MainActor.run { AppState.shared.aiRequestRunning = true }
+          do {
+            let result = try await OpenAI.chat(prompt: prompt, text: text, apiKey: Defaults[.openAIKey])
+            await MainActor.run {
+              AppState.shared.aiRequestRunning = false
+              Clipboard.shared.copy(result)
+            }
+          } catch {
+            await MainActor.run { AppState.shared.aiRequestRunning = false }
+            NSLog("Failed to process AI: \(error)")
+          }
+        }
+      } else if let data = pasteboard.data(forType: .png)
+                    ?? pasteboard.data(forType: .tiff)
+                    ?? pasteboard.data(forType: .jpeg)
+                    ?? pasteboard.data(forType: .heic) {
+        var pngData = data
+        if let image = NSImage(data: data),
+           let tiff = image.tiffRepresentation,
+           let bitmap = NSBitmapImageRep(data: tiff),
+           let converted = bitmap.representation(using: .png, properties: [:]) {
+          pngData = converted
+        }
+
+        Task {
+          await MainActor.run { AppState.shared.aiRequestRunning = true }
+          do {
+            let result = try await OpenAI.chat(prompt: prompt, imageData: pngData, apiKey: Defaults[.openAIKey])
+            await MainActor.run {
+              AppState.shared.aiRequestRunning = false
+              Clipboard.shared.copy(result)
+            }
+          } catch {
+            await MainActor.run { AppState.shared.aiRequestRunning = false }
+            NSLog("Failed to process AI: \(error)")
       Task {
         await MainActor.run { AppState.shared.aiRequestRunning = true }
         do {
@@ -236,10 +272,9 @@ class Clipboard {
           await MainActor.run {
             AppState.shared.aiRequestRunning = false
             Clipboard.shared.copy(result)
+            Notifier.notify(body: result.shortened(to: 100), sound: .write
+                       master
           }
-        } catch {
-          await MainActor.run { AppState.shared.aiRequestRunning = false }
-          NSLog("Failed to process AI: \(error)")
         }
       }
     }

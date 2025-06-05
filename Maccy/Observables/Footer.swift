@@ -91,9 +91,9 @@ class Footer {
 
     Task { @MainActor in updateAIToggle() }
 
-    Task { @MainActor in
+    Task {
       for await value in Defaults.updates(.aiEnabled) {
-        updateAIToggle(value)
+        await updateAIToggle(value)
       }
     }
   }
