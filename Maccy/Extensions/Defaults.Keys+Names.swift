@@ -63,7 +63,7 @@ extension Defaults.Keys {
   static let openAIPrompts = Key<[String]>(
     "openAIPrompts",
     default: [
-      "Summarize the copied text in 3 sentences.\nFocus on key facts only.",
+      "Summarize the copied text in 3 paragraphs.\nFocus on key facts only.",
       "Translate the copied text to Spanish.\nKeep formatting as close as possible.",
       "List main ideas as bullet points.\nUse one short phrase per bullet.",
       "Explain the meaning in simple terms.\nAvoid jargon or complex vocabulary.",
