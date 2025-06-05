@@ -23,6 +23,27 @@ struct OpenAI {
     let choices: [Choice]
   }
 
+  struct VisionImageURL: Codable {
+    let url: String
+    let detail: String?
+  }
+
+  struct VisionContent: Codable {
+    let type: String
+    let text: String?
+    let image_url: VisionImageURL?
+  }
+
+  struct VisionMessage: Codable {
+    let role: String
+    let content: [VisionContent]
+  }
+
+  struct VisionRequestBody: Codable {
+    let model: String
+    let messages: [VisionMessage]
+  }
+
   static func chat(prompt: String, text: String, apiKey: String) async throws -> String {
     let url = URL(string: "https://api.openai.com/v1/chat/completions")!
     var request = URLRequest(url: url)
@@ -44,5 +65,44 @@ struct OpenAI {
     }
     let decoded = try JSONDecoder().decode(ResponseBody.self, from: data)
     return decoded.choices.first?.message.content ?? text
+  }
+
+  static func chat(prompt: String, imageData: Data, apiKey: String) async throws -> String {
+    let url = URL(string: "https://api.openai.com/v1/chat/completions")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+    let base64 = imageData.base64EncodedString()
+    let dataUrl = "data:image/png;base64,\(base64)"
+
+    let body = VisionRequestBody(
+      model: "gpt-4o",
+      messages: [
+        VisionMessage(
+          role: "system",
+          content: [VisionContent(type: "text", text: prompt, image_url: nil)]
+        ),
+        VisionMessage(
+          role: "user",
+          content: [
+            VisionContent(
+              type: "image_url",
+              text: nil,
+              image_url: VisionImageURL(url: dataUrl, detail: "auto")
+            )
+          ]
+        )
+      ]
+    )
+    request.httpBody = try JSONEncoder().encode(body)
+
+    let (data, response) = try await URLSession.shared.data(for: request)
+    guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+      throw OpenAIError.invalidResponse
+    }
+    let decoded = try JSONDecoder().decode(ResponseBody.self, from: data)
+    return decoded.choices.first?.message.content ?? ""
   }
 }
