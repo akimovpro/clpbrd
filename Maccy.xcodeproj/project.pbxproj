@@ -125,7 +125,8 @@
 		DAFE2DDA268A521B00990986 /* String+Shortened.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE2DD9268A521A00990986 /* String+Shortened.swift */; };
 		DAFE2DE9268A9B1B00990986 /* HistoryItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE2DE8268A9B1B00990986 /* HistoryItemTests.swift */; };
                 DAFEF0B8249D7DEE006029E8 /* KeyboardShortcuts.Name+Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFEF0B7249D7DEE006029E8 /* KeyboardShortcuts.Name+Shortcuts.swift */; };
-                5BF0FFC405D1FF7911237E6F /* OpenAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2027135ABADDF4D6ADD3AE86 /* OpenAI.swift */; };
+               5BF0FFC405D1FF7911237E6F /* OpenAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2027135ABADDF4D6ADD3AE86 /* OpenAI.swift */; };
+               263DBE918258EAE286F6749E /* YouTube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D76C782CF5923383A292D9 /* YouTube.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,7 +204,8 @@
 		DA1969202C3F6C6800258481 /* HistoryItemAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemAction.swift; sourceTree = "<group>"; };
 		DA1EDE422045B35300479723 /* HistoryDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDecoratorTests.swift; sourceTree = "<group>"; };
                 DA20FA712B082DD600056DD5 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
-                2027135ABADDF4D6ADD3AE86 /* OpenAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAI.swift; sourceTree = "<group>"; };
+               2027135ABADDF4D6ADD3AE86 /* OpenAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAI.swift; sourceTree = "<group>"; };
+               82D76C782CF5923383A292D9 /* YouTube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTube.swift; sourceTree = "<group>"; };
                 DA20FA732B082E0100056DD5 /* Knock.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Knock.caf; sourceTree = "<group>"; };
 		DA20FA752B082E0800056DD5 /* Write.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Write.caf; sourceTree = "<group>"; };
 		DA20FA772B082E1A00056DD5 /* NSSound+Named.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSound+Named.swift"; sourceTree = "<group>"; };
@@ -747,9 +749,10 @@
 				DA19690F2C3F0AAC00258481 /* KeyShortcut.swift */,
 				DA05B5102C234CB1006980FE /* MaccyApp.swift */,
 				DA689FCB2C1D1D510009B887 /* MenuIcon.swift */,
-                                DA20FA712B082DD600056DD5 /* Notifier.swift */,
-                                2027135ABADDF4D6ADD3AE86 /* OpenAI.swift */,
-                                DA689FC72C1D15140009B887 /* PinsPosition.swift */,
+                               DA20FA712B082DD600056DD5 /* Notifier.swift */,
+                               2027135ABADDF4D6ADD3AE86 /* OpenAI.swift */,
+                               82D76C782CF5923383A292D9 /* YouTube.swift */,
+                               DA689FC72C1D15140009B887 /* PinsPosition.swift */,
 				DA689FC52C1D14F10009B887 /* PopupPosition.swift */,
 				DAC14123232367B200FCFA30 /* Search.swift */,
 				2F1A79BF2C6DFB7800C98EBD /* SearchVisibility.swift */,
@@ -1049,9 +1052,10 @@
 				2F8B9DE62C5D6E5D0046EF69 /* NSPoint+DefaultsSerializable.swift in Sources */,
 				DAA072D72C41C574006DDFD2 /* AppState.swift in Sources */,
 				DA9C3C5E2C20E1190056795D /* IgnoreApplicationsSettingsView.swift in Sources */,
-                                DA20FA722B082DD600056DD5 /* Notifier.swift in Sources */,
-                                5BF0FFC405D1FF7911237E6F /* OpenAI.swift in Sources */,
-                                DAA072DB2C41C5DD006DDFD2 /* FooterItem.swift in Sources */,
+                               DA20FA722B082DD600056DD5 /* Notifier.swift in Sources */,
+                               5BF0FFC405D1FF7911237E6F /* OpenAI.swift in Sources */,
+                               263DBE918258EAE286F6749E /* YouTube.swift in Sources */,
+                               DAA072DB2C41C5DD006DDFD2 /* FooterItem.swift in Sources */,
 				DA689FC62C1D14F10009B887 /* PopupPosition.swift in Sources */,
 				DA49EE7528B59468002752E0 /* NSRect+Centered.swift in Sources */,
 				DA9C3C602C20E1890056795D /* IgnorePasteboardTypesSettingsView.swift in Sources */,

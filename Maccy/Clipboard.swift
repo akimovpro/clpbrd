@@ -225,14 +225,29 @@ class Clipboard {
     // AI processing
     if Defaults[.aiEnabled],
        !Defaults[.openAIKey].isEmpty,
-       !Defaults[.openAIPrompt].isEmpty,
        !(pasteboard.types?.contains(.fromMaccy) ?? false),
        let text = pasteboard.string(forType: .string) {
-      let prompt = Defaults[.openAIPrompt]
+      var prompt = Defaults[.openAIPrompt]
+      var input = text
+
+      if YouTube.isYouTubeURL(text), let id = YouTube.videoID(from: text) {
+        do {
+          input = try await YouTube.fetchTranscript(videoID: id)
+          if prompt.isEmpty {
+            prompt = "Provide a one page summary of the following YouTube video transcript."
+          }
+        } catch {
+          NSLog("Failed to fetch YouTube transcript: \(error)")
+          return
+        }
+      } else if prompt.isEmpty {
+        return
+      }
+
       Task {
         await MainActor.run { AppState.shared.aiRequestRunning = true }
         do {
-          let result = try await OpenAI.chat(prompt: prompt, text: text, apiKey: Defaults[.openAIKey])
+          let result = try await OpenAI.chat(prompt: prompt, text: input, apiKey: Defaults[.openAIKey])
           await MainActor.run {
             AppState.shared.aiRequestRunning = false
             Clipboard.shared.copy(result)
