@@ -6,17 +6,29 @@ struct PromptsSettingsPane: View {
   @Default(.activePromptIndex) private var activePromptIndex
 
   var body: some View {
-    VStack(alignment: .leading) {
+    VStack(alignment: .leading, spacing: 10) {
       Picker("", selection: $activePromptIndex) {
         ForEach(prompts.indices, id: \.self) { index in
-          Text(prompts[index])
-            .fixedSize(horizontal: false, vertical: true)
-            .tag(index)
+          HStack(alignment: .top) {
+            TextEditor(
+              text: Binding(
+                get: { prompts[index] },
+                set: { prompts[index] = $0 }
+              )
+            )
+            .lineLimit(4)
+            .frame(minHeight: 60)
+          }
+          .tag(index)
         }
       }
       .pickerStyle(.radioGroup)
+
+      Text("ShortcutsInfo", tableName: "PromptsSettings")
+        .foregroundStyle(.gray)
+        .controlSize(.small)
     }
-    .frame(minWidth: 350, maxWidth: 450, minHeight: 300)
+    .frame(minWidth: 500, maxWidth: 600, minHeight: 400)
     .padding()
   }
 }
