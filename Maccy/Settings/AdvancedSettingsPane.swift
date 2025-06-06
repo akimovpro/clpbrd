@@ -3,6 +3,7 @@ import Defaults
 
 struct AdvancedSettingsPane: View {
   @Default(.openAIKey) private var openAIKey
+  @Default(.supabaseKey) private var supabaseKey
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -43,6 +44,10 @@ struct AdvancedSettingsPane: View {
       HStack {
         Text("OpenAIAPIKey", tableName: "AdvancedSettings")
         TextField("", text: $openAIKey)
+      }
+      HStack {
+        Text("SupabaseAPIKey", tableName: "AdvancedSettings")
+        TextField("", text: $supabaseKey)
       }
     }
     .frame(minWidth: 350, maxWidth: 450)

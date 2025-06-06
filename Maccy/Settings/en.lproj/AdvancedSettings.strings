@@ -9,4 +9,5 @@
 "ClearSystemClipboard" = "Clear the system clipboard too";
 "ClearSystemClipboardTooltip" = "When enabled, clearing the history would also clear the current system clipboard.";
 "OpenAIAPIKey" = "OpenAI API Key";
+"SupabaseAPIKey" = "Supabase API Key";
 "Prompt" = "Prompt";

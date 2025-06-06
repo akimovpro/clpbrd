@@ -225,14 +225,36 @@ class Clipboard {
     // AI processing
     if Defaults[.aiEnabled],
        !Defaults[.openAIKey].isEmpty,
-       !Defaults[.openAIPrompts].isEmpty,
        !(pasteboard.types?.contains(.fromMaccy) ?? false) {
-      let prompts = Defaults[.openAIPrompts]
-      let index = Defaults[.activePromptIndex]
-      guard prompts.indices.contains(index) else { return }
-      let prompt = prompts[index]
 
-      if let text = pasteboard.string(forType: .string) {
+      if let text = pasteboard.string(forType: .string),
+         let videoID = YoutubeTranscriptFetcher.videoID(from: text),
+         !Defaults[.supabaseKey].isEmpty {
+        Task {
+          await MainActor.run { AppState.shared.aiRequestRunning = true }
+          do {
+            let transcript = try await YoutubeTranscriptFetcher.fetchTranscript(for: videoID,
+                                                                               apiKey: Defaults[.supabaseKey])
+            let result = try await OpenAI.chat(prompt: "summarize in 3 paragraphs",
+                                              text: transcript,
+                                              apiKey: Defaults[.openAIKey])
+            await MainActor.run {
+              AppState.shared.aiRequestRunning = false
+              Clipboard.shared.copy(result)
+              Notifier.notify(body: result.shortened(to: 100), sound: .write)
+            }
+          } catch {
+            await MainActor.run { AppState.shared.aiRequestRunning = false }
+            NSLog("Failed to process AI: \(error)")
+          }
+        }
+      } else if !Defaults[.openAIPrompts].isEmpty,
+                let text = pasteboard.string(forType: .string) {
+        let prompts = Defaults[.openAIPrompts]
+        let index = Defaults[.activePromptIndex]
+        guard prompts.indices.contains(index) else { return }
+        let prompt = prompts[index]
+
         Task {
           await MainActor.run { AppState.shared.aiRequestRunning = true }
           do {
