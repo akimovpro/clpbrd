@@ -6,11 +6,21 @@ struct YoutubeTranscriptFetcher {
   }
 
   static func videoID(from url: String) -> String? {
-    if let match = url.range(of: "v=([\\w-]{11})", options: .regularExpression) {
-      return String(url[match]).replacingOccurrences(of: "v=", with: "")
-    }
-    if let match = url.range(of: "youtu\\.be/([\\w-]{11})", options: .regularExpression) {
-      return url[match].split(separator: "/").last.map(String.init)
+    let patterns = [
+      "v=([\\w-]{11})",
+      "youtu\\.be/([\\w-]{11})",
+      "youtube\\.com/(?:shorts|embed|v)/([\\w-]{11})"
+    ]
+
+    for pattern in patterns {
+      if let regex = try? NSRegularExpression(pattern: pattern) {
+        let range = NSRange(url.startIndex..<url.endIndex, in: url)
+        if let match = regex.firstMatch(in: url, range: range) {
+          if let idRange = Range(match.range(at: 1), in: url) {
+            return String(url[idRange])
+          }
+        }
+      }
     }
     return nil
   }
