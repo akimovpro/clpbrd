@@ -14,7 +14,7 @@ struct TextRecognition {
       throw TextRecognitionError.invalidImage
     }
 
-    let allLanguages = ["en"] + inputSourceLanguages()
+    let allLanguages = ["en"] + await inputSourceLanguages()
     let (text, detected) = try await recognize(cgImage: cgImage, languages: allLanguages)
 
     guard let detected, detected != "en" else {
@@ -52,6 +52,7 @@ struct TextRecognition {
     }
   }
 
+  @MainActor
   private static func inputSourceLanguages() -> [String] {
     var languages = Set<String>()
     if let list = TISCreateInputSourceList(nil, false)?.takeRetainedValue() as? [TISInputSource] {
