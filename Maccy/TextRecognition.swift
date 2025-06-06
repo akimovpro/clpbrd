@@ -14,7 +14,8 @@ struct TextRecognition {
       throw TextRecognitionError.invalidImage
     }
 
-    let allLanguages = ["en"] + await inputSourceLanguages()
+    let inputLanguages = await inputSourceLanguages()
+    let allLanguages = ["en"] + inputLanguages
     let (text, detected) = try await recognize(cgImage: cgImage, languages: allLanguages)
 
     guard let detected, detected != "en" else {
