@@ -14,15 +14,21 @@ struct TextRecognition {
       throw TextRecognitionError.invalidImage
     }
 
+    // Start with automatic language detection without restricting languages
+    let (initialText, detected) = try await recognize(cgImage: cgImage, languages: [])
     let inputLanguages = await inputSourceLanguages()
     let allLanguages = ["en"] + inputLanguages
     let (text, detected) = try await recognize(cgImage: cgImage, languages: allLanguages)
 
-    guard let detected, detected != "en" else {
-      return text
-    }
+    // If language couldn't be detected, just return whatever was recognised
+    guard let detected else { return initialText }
 
-    let finalLanguages = Array(Set(["en", detected]))
+    // Combine detected language with user input sources and English fallback
+    var languages = await inputSourceLanguages()
+    languages.append("en")
+    languages.append(detected)
+    let finalLanguages = Array(Set(languages))
+
     let (finalText, _) = try await recognize(cgImage: cgImage, languages: finalLanguages)
     return finalText
   }
@@ -42,7 +48,9 @@ struct TextRecognition {
         continuation.resume(returning: (text, language))
       }
       request.recognitionLevel = .fast
-      request.recognitionLanguages = languages
+      if !languages.isEmpty {
+        request.recognitionLanguages = languages
+      }
 
       let handler = VNImageRequestHandler(cgImage: cgImage)
       do {
