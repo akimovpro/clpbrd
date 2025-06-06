@@ -55,13 +55,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
     }
 
-    Task {
+    Task { @MainActor in
       for await value in Defaults.updates(.showInStatusBar) {
         statusItem.isVisible = value
       }
     }
 
-    Task {
+    Task { @MainActor in
       for await value in Defaults.updates(.menuIcon, initial: false) {
         statusItem.button?.image = value.image
       }
@@ -69,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     synchronizeMenuIconText()
     synchronizeAIBlinking()
-    Task {
+    Task { @MainActor in
       for await value in Defaults.updates(.showRecentCopyInMenuBar) {
         if value {
           statusItem.button?.title = AppState.shared.menuIconText
@@ -79,13 +79,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
     }
 
-    Task {
+    Task { @MainActor in
       for await _ in Defaults.updates(.ignoreEvents) {
         statusItem.button?.appearsDisabled = isStatusItemDisabled
       }
     }
 
-    Task {
+    Task { @MainActor in
       for await _ in Defaults.updates(.enabledPasteboardTypes) {
         statusItem.button?.appearsDisabled = isStatusItemDisabled
       }

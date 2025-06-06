@@ -17,6 +17,7 @@ class ApplicationImage {
     self.image = image
   }
 
+  @MainActor
   var nsImage: NSImage {
     guard let bundleIdentifier else {
       return Self.fallbackImage
