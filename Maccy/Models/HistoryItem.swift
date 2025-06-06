@@ -80,7 +80,7 @@ class HistoryItem {
   func generateTitle() -> String {
     guard image == nil else {
       Task {
-        self.performTextRecognition()
+        await self.performTextRecognition()
       }
       return ""
     }
@@ -205,31 +205,15 @@ class HistoryItem {
       .compactMap { $0.value }
   }
 
-  private func performTextRecognition() {
-    guard let cgImage = image?.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
-      return
-    }
-
-    let requestHandler = VNImageRequestHandler(cgImage: cgImage)
-    let request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-    request.recognitionLevel = .fast
+  @MainActor
+  private func performTextRecognition() async {
+    guard let data = imageData else { return }
 
     do {
-      try requestHandler.perform([request])
+      let text = try await TextRecognition.recognize(imageData: data)
+      self.title = text
     } catch {
       print("Unable to perform the request: \(error).")
     }
-  }
-
-  private func recognizeTextHandler(request: VNRequest, error: Error?) {
-    guard let observations = request.results as? [VNRecognizedTextObservation] else {
-      return
-    }
-
-    let recognizedStrings = observations.compactMap { observation in
-      return observation.topCandidates(1).first?.string
-    }
-
-    self.title = recognizedStrings.joined(separator: "\n")
   }
 }
