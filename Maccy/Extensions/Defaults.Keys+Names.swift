@@ -60,6 +60,7 @@ extension Defaults.Keys {
   static let showApplicationIcons = Key<Bool>("showApplicationIcons", default: false)
   static let aiEnabled = Key<Bool>("aiEnabled", default: false)
   static let openAIKey = Key<String>("openAIKey", default: "")
+  static let supabaseKey = Key<String>("supabaseKey", default: "")
   static let openAIPrompts = Key<[String]>(
     "openAIPrompts",
     default: [
