@@ -37,7 +37,7 @@ struct TextRecognition {
         let observations = request.results as? [VNRecognizedTextObservation] ?? []
         let candidates = observations.compactMap { $0.topCandidates(1).first }
         let text = candidates.map { $0.string }.joined(separator: "\n")
-        let language = NLLanguageRecognizer.dominantLanguage(for: text)?.rawValue ?? candidates.first?.languageCode
+        let language = NLLanguageRecognizer.dominantLanguage(for: text)?.rawValue
         continuation.resume(returning: (text, language))
       }
       request.recognitionLevel = .fast
