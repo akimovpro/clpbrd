@@ -16,6 +16,9 @@ struct TextRecognition {
 
     // Start with automatic language detection without restricting languages
     let (initialText, detected) = try await recognize(cgImage: cgImage, languages: [])
+    let inputLanguages = await inputSourceLanguages()
+    let allLanguages = ["en"] + inputLanguages
+    let (text, detected) = try await recognize(cgImage: cgImage, languages: allLanguages)
 
     // If language couldn't be detected, just return whatever was recognised
     guard let detected else { return initialText }
