@@ -1,6 +1,7 @@
 import AppKit
 import Defaults
 import Sauce
+import Carbon
 
 class Clipboard {
   static let shared = Clipboard()
@@ -13,6 +14,7 @@ class Clipboard {
   private let pasteboard = NSPasteboard.general
 
   private var timer: Timer?
+  private var captureNext = false
 
   private let dynamicTypePrefix = "dyn."
   private let microsoftSourcePrefix = "com.microsoft.ole.source."
@@ -140,6 +142,24 @@ class Clipboard {
     keyVUp?.post(tap: .cgSessionEventTap)
   }
 
+  func specialCopy() {
+    captureNext = true
+    simulateCommandC()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+      self.checkForChangesInPasteboard()
+    }
+  }
+
+  private func simulateCommandC() {
+    let source = CGEventSource(stateID: .combinedSessionState)
+    let keyDown = CGEvent(keyboardEventSource: source, virtualKey: CGKeyCode(kVK_ANSI_C), keyDown: true)
+    let keyUp = CGEvent(keyboardEventSource: source, virtualKey: CGKeyCode(kVK_ANSI_C), keyDown: false)
+    keyDown?.flags = .maskCommand
+    keyUp?.flags = .maskCommand
+    keyDown?.post(tap: .cgSessionEventTap)
+    keyUp?.post(tap: .cgSessionEventTap)
+  }
+
   func clear() {
     guard Defaults[.clearSystemClipboard] else {
       return
@@ -165,6 +185,11 @@ class Clipboard {
 
       return
     }
+
+    guard captureNext else {
+      return
+    }
+    captureNext = false
 
     // Reading types on NSPasteboard gives all the available
     // types - even the ones that are not present on the NSPasteboardItem.
