@@ -1,5 +1,7 @@
 import AppKit
 import Carbon
+import Foundation
+import NaturalLanguage
 import Vision
 
 enum TextRecognitionError: Error {
@@ -54,6 +56,17 @@ struct TextRecognition {
                     observation.topCandidates(1).first?.string
                 }
 
+        let observations = request.results as? [VNRecognizedTextObservation] ?? []
+        let candidates = observations.compactMap { $0.topCandidates(1).first }
+        let text = candidates.map { $0.string }.joined(separator: "\n")
+        let language = NLLanguageRecognizer.dominantLanguage(for: text)?.rawValue
+        continuation.resume(returning: (text, language))
+      }
+      request.recognitionLevel = .accurate
+      request.usesLanguageCorrection = true
+      if !languages.isEmpty {
+        request.recognitionLanguages = languages
+      }
                 continuation.resume(returning: recognizedStrings.joined(separator: "\n"))
             }
 
@@ -104,4 +117,8 @@ struct TextRecognition {
             print("❌ Could not get supported languages: \(error)")
         }
     }
+    languages.formUnion(Locale.preferredLanguages)
+    return Array(languages)
+  }
+master
 }
