@@ -129,6 +129,7 @@
                 404D6208C516203D6E699CAA /* PromptsSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602E448F58A1F5B95BD72D8E /* PromptsSettingsPane.swift */; };
                 DB05BED6EBDFC349481C1D69 /* PromptsSettings.strings in Resources */ = {isa = PBXBuildFile; fileRef = E604C9B101C574607C49B68B /* PromptsSettings.strings */; };
                E8FAAD7F8886588258B77B3F /* Prompts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EB700F0DA5846E2742505 /* Prompts.swift */; };
+               E1A98A7F22D8B45BBE8697F8 /* CaptureShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905E1767CAC63C557A26CEDD /* CaptureShortcut.swift */; };
                A2B714835E924FA2969B02F0 /* TextRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85F055CB9B89464580E7C425 /* TextRecognition.swift */; };
                25F8950B3E9CDA1B00456B1D /* Youtube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F8950A3E9CDA1B00456B1C /* Youtube.swift */; };
 /* End PBXBuildFile section */
@@ -484,6 +485,7 @@
 		DAE2850123225BD90080E394 /* ColorImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorImageTests.swift; sourceTree = "<group>"; };
                DAE8F5D32C43262B00851CA9 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
                7F2EB700F0DA5846E2742505 /* Prompts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prompts.swift; sourceTree = "<group>"; };
+               905E1767CAC63C557A26CEDD /* CaptureShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureShortcut.swift; sourceTree = "<group>"; };
                85F055CB9B89464580E7C425 /* TextRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognition.swift; sourceTree = "<group>"; };
                DAEE38431E3DBEB100DD2966 /* Maccy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maccy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAEE38461E3DBEB100DD2966 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -672,11 +674,12 @@
 				DA3BCB912C3EEC3C00B01BC1 /* History.swift */,
 				DA3BCB932C3EECBB00B01BC1 /* HistoryItemDecorator.swift */,
 				DA3BCB8D2C3E015000B01BC1 /* ModifierFlags.swift */,
-                                DAE8F5D32C43262B00851CA9 /* Popup.swift */,
-                                7F2EB700F0DA5846E2742505 /* Prompts.swift */,
-                        );
-                        path = Observables;
-                        sourceTree = "<group>";
+                               DAE8F5D32C43262B00851CA9 /* Popup.swift */,
+                               7F2EB700F0DA5846E2742505 /* Prompts.swift */,
+                               905E1767CAC63C557A26CEDD /* CaptureShortcut.swift */,
+                       );
+                       path = Observables;
+                       sourceTree = "<group>";
                 };
 		DA48AE852A5F0077006D4894 /* Fixtures */ = {
 			isa = PBXGroup;
@@ -1021,9 +1024,10 @@
 				DA689FC82C1D15140009B887 /* PinsPosition.swift in Sources */,
 				DA13D7D92C1A223E00FA9E23 /* Get.swift in Sources */,
 				DA1969182C3F327500258481 /* SearchFieldView.swift in Sources */,
-                                DAE8F5D42C43262B00851CA9 /* Popup.swift in Sources */,
-                                E8FAAD7F8886588258B77B3F /* Prompts.swift in Sources */,
-                                DA13D7DA2C1A223E00FA9E23 /* Clear.swift in Sources */,
+                               DAE8F5D42C43262B00851CA9 /* Popup.swift in Sources */,
+                               E8FAAD7F8886588258B77B3F /* Prompts.swift in Sources */,
+                               E1A98A7F22D8B45BBE8697F8 /* CaptureShortcut.swift in Sources */,
+                               DA13D7DA2C1A223E00FA9E23 /* Clear.swift in Sources */,
 				DA13D7DB2C1A223E00FA9E23 /* Delete.swift in Sources */,
 				DA19691F2C3F5F0600258481 /* KeyHandlingView.swift in Sources */,
 				DA13D7DC2C1A223E00FA9E23 /* HistoryItemAppEntity.swift in Sources */,
