@@ -14,6 +14,8 @@ final class AppState: @unchecked Sendable {
   var footer: Footer
   @ObservationIgnored
   var prompts: Prompts = .init()
+  @ObservationIgnored
+  var captureShortcut: CaptureShortcut = .init()
 
   var aiRequestRunning: Bool = false
 

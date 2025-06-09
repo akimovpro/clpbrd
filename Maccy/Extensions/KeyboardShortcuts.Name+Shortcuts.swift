@@ -15,4 +15,5 @@ extension KeyboardShortcuts.Name {
   static let prompt9 = Self("prompt9", default: Shortcut(.nine, modifiers: [.control, .option]))
   static let prompt10 = Self("prompt10", default: Shortcut(.zero, modifiers: [.control, .option]))
   static let toggleAI = Self("toggleAI", default: Shortcut(.a, modifiers: [.command, .option]))
+  static let capture = Self("capture", default: Shortcut(.c, modifiers: [.command, .control]))
 }
