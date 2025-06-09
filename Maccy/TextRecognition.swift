@@ -1,5 +1,6 @@
 import AppKit
 import Carbon
+import Foundation
 import NaturalLanguage
 import Vision
 
@@ -47,7 +48,8 @@ struct TextRecognition {
         let language = NLLanguageRecognizer.dominantLanguage(for: text)?.rawValue
         continuation.resume(returning: (text, language))
       }
-      request.recognitionLevel = .fast
+      request.recognitionLevel = .accurate
+      request.usesLanguageCorrection = true
       if !languages.isEmpty {
         request.recognitionLanguages = languages
       }
@@ -74,6 +76,7 @@ struct TextRecognition {
         }
       }
     }
+    languages.formUnion(Locale.preferredLanguages)
     return Array(languages)
   }
 }
