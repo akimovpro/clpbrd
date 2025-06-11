@@ -16,7 +16,8 @@ struct IgnoreSettingsPane: View {
           Text("RegexpTab", tableName: "IgnoreSettings")
         }
     }
-    .frame(width: 650, minHeight: 400)
+    .frame(width: 650)
+    .frame(minHeight: 400)
     .padding()
   }
 }
