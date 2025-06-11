@@ -26,6 +26,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   private var statusItemVisibilityObserver: NSKeyValueObservation?
 
+  private func loadAPIKeysFromEnvironment() {
+    let env = ProcessInfo.processInfo.environment
+    if let openAI = env["OPENAI_API_KEY"], !openAI.isEmpty {
+      Defaults[.openAIKey] = openAI
+    }
+    if let supadata = env["SUPADATA_API_KEY"], !supadata.isEmpty {
+      Defaults[.supabaseKey] = supadata
+    }
+  }
+
   func applicationWillFinishLaunching(_ notification: Notification) { // swiftlint:disable:this function_body_length
     #if DEBUG
     if CommandLine.arguments.contains("enable-testing") {
@@ -39,6 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // Bridge FloatingPanel via AppDelegate.
     AppState.shared.appDelegate = self
+    loadAPIKeysFromEnvironment()
 
     Clipboard.shared.onNewCopy { History.shared.add($0) }
     Clipboard.shared.start()

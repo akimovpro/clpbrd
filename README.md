@@ -110,6 +110,20 @@ to speed it up, you can change it with `defaults`:
 defaults write org.p0deje.Maccy clipboardCheckInterval 0.1 # 100 ms
 ```
 
+### Configure API keys
+
+If you want to use AI features, create a `.env` file in the project root based on
+`.env.example` and provide your API keys:
+
+```sh
+cp .env.example .env
+echo "OPENAI_API_KEY=<your-key>" >> .env
+echo "SUPADATA_API_KEY=<your-key>" >> .env
+```
+
+These values are read at launch and stored in Maccy's settings but the `.env`
+file itself is ignored by Git.
+
 ## FAQ
 
 ### Why doesn't it paste when I select an item in history?
