@@ -68,7 +68,8 @@ struct PinsSettingsPane: View {
         .foregroundStyle(.gray)
         .controlSize(.small)
     }
-    .frame(minWidth: 500, minHeight: 400)
+    .frame(width: 650)
+    .frame(minHeight: 400)
     .padding()
   }
 }

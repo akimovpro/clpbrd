@@ -30,7 +30,8 @@ struct PromptsSettingsPane: View {
         .foregroundStyle(.gray)
         .controlSize(.small)
     }
-    .frame(minWidth: 500, maxWidth: 600, minHeight: 400)
+    .frame(width: 650)
+    .frame(minHeight: 400)
     .padding()
   }
 }

@@ -16,7 +16,7 @@ struct AdvancedSettingsPane: View {
         Text("ClearSystemClipboard", tableName: "AdvancedSettings")
       }.help(Text("ClearSystemClipboardTooltip", tableName: "AdvancedSettings"))
     }
-    .frame(minWidth: 350, maxWidth: 450)
+    .frame(width: 650)
     .padding()
   }
 }
