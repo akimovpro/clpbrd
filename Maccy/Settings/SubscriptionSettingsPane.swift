@@ -37,6 +37,6 @@ struct SubscriptionSettingsPane: View {
         set: { showSubscriptionView = $0 }
       ), fromOnboarding: false)
     }
-    .frame(width: 400, height: 200)
+    .frame(width: 650, height: 200)
   }
-} 
+}
