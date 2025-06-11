@@ -69,7 +69,7 @@ struct StorageSettingsPane: View {
   }()
 
   var body: some View {
-    Settings.Container(contentWidth: 450) {
+    Settings.Container(contentWidth: 650) {
       Settings.Section(
         bottomDivider: true,
         label: { Text("Save", tableName: "StorageSettings") }

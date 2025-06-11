@@ -18,7 +18,7 @@ struct GeneralSettingsPane: View {
   @State private var updater = SoftwareUpdater()
 
   var body: some View {
-    Settings.Container(contentWidth: 450) {
+    Settings.Container(contentWidth: 650) {
       Settings.Section(title: "", bottomDivider: true) {
         LaunchAtLogin.Toggle {
           Text("LaunchAtLogin", tableName: "GeneralSettings")
