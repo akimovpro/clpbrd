@@ -7,22 +7,24 @@ struct PromptsSettingsPane: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: 10) {
-      Picker("", selection: $activePromptIndex) {
+      List {
         ForEach(prompts.indices, id: \.self) { index in
           HStack(alignment: .top) {
-            TextEditor(
-              text: Binding(
-                get: { prompts[index] },
-                set: { prompts[index] = $0 }
-              )
-            )
-            .lineLimit(4)
-            .frame(minHeight: 60)
+            Button {
+              activePromptIndex = index
+            } label: {
+              Image(systemName: activePromptIndex == index ? "largecircle.fill.circle" : "circle")
+            }
+            .buttonStyle(.plain)
+            .padding(.top, 8)
+
+            TextEditor(text: $prompts[index])
+              .lineLimit(4)
+              .frame(minHeight: 60)
           }
-          .tag(index)
+          .padding(.vertical, 5)
         }
       }
-      .pickerStyle(.radioGroup)
 
       Text("ShortcutsInfo", tableName: "PromptsSettings")
         .foregroundStyle(.gray)
