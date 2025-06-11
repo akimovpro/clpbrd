@@ -2,53 +2,19 @@ import SwiftUI
 import Defaults
 
 struct AdvancedSettingsPane: View {
-  @Default(.openAIKey) private var openAIKey
-  @Default(.supabaseKey) private var supabaseKey
-
   var body: some View {
     VStack(alignment: .leading) {
       Defaults.Toggle(key: .ignoreEvents) {
-        Text("TurnOff", tableName: "AdvancedSettings")
-      }
-      Text("TurnOffDescription", tableName: "AdvancedSettings")
-        .fixedSize(horizontal: false, vertical: true)
-        .foregroundStyle(.gray)
-        .controlSize(.small)
-      Text("TurnOffShellScript", tableName: "AdvancedSettings")
-        .fixedSize(horizontal: false, vertical: true)
-        .foregroundStyle(.gray)
-        .font(.system(size: 11, design: .monospaced))
-        .controlSize(.small)
-        .padding(.vertical, 2)
-      Text("TurnOffViaMenuIconDescription", tableName: "AdvancedSettings")
-        .fixedSize(horizontal: false, vertical: true)
-        .foregroundStyle(.gray)
-        .controlSize(.small)
-      Text("TurnOffNextShellScript", tableName: "AdvancedSettings")
-        .fixedSize(horizontal: false, vertical: true)
-        .foregroundStyle(.gray)
-        .font(.system(size: 11, design: .monospaced))
-        .controlSize(.small)
-        .padding(.vertical, 2)
+        Text("IgnoreEvents", tableName: "AdvancedSettings")
+      }.help(Text("IgnoreEventsTooltip", tableName: "AdvancedSettings"))
 
-      Divider()
-
-      Defaults.Toggle(key: .clearOnQuit) {
+      Defaults.Toggle(key: .clearHistoryOnQuit) {
         Text("ClearHistoryOnQuit", tableName: "AdvancedSettings")
       }.help(Text("ClearHistoryOnQuitTooltip", tableName: "AdvancedSettings"))
 
       Defaults.Toggle(key: .clearSystemClipboard) {
         Text("ClearSystemClipboard", tableName: "AdvancedSettings")
       }.help(Text("ClearSystemClipboardTooltip", tableName: "AdvancedSettings"))
-
-      HStack {
-        Text("OpenAIAPIKey", tableName: "AdvancedSettings")
-        TextField("", text: $openAIKey)
-      }
-      HStack {
-        Text("SupabaseAPIKey", tableName: "AdvancedSettings")
-        TextField("", text: $supabaseKey)
-      }
     }
     .frame(minWidth: 350, maxWidth: 450)
     .padding()

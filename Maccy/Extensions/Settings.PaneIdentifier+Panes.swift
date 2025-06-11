@@ -8,4 +8,5 @@ extension Settings.PaneIdentifier {
   static let pins = Self("pins")
   static let storage = Self("storage")
   static let prompts = Self("prompts")
+  static let subscription = Self("subscription")
 }

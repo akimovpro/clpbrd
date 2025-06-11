@@ -77,4 +77,13 @@ extension Defaults.Keys {
     ]
   )
   static let activePromptIndex = Key<Int>("activePromptIndex", default: 0)
+
+  // Onboarding
+  static let onboardingCompleted = Key<Bool>("onboardingCompleted", default: false)
+
+  // Subscription
+  static let dailyCopyCount = Key<Int>("dailyCopyCount", default: 0)
+  static let lastCopyDate = Key<Date?>("lastCopyDate", default: nil)
+  static let trialEndDate = Key<Date?>("trialEndDate", default: nil)
+  static let isSubscribed = Key<Bool>("isSubscribed", default: false)
 }

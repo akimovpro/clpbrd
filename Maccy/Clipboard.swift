@@ -186,6 +186,19 @@ class Clipboard {
       return
     }
 
+    if !isSubscribed() {
+      let today = Calendar.current.startOfDay(for: Date())
+      if let lastDate = Defaults[.lastCopyDate], Calendar.current.startOfDay(for: lastDate) == today {
+        if Defaults[.dailyCopyCount] >= 5 {
+          AppState.shared.showSubscriptionView = true
+          return
+        }
+      } else {
+        Defaults[.lastCopyDate] = today
+        Defaults[.dailyCopyCount] = 0
+      }
+    }
+
     guard captureNext else {
       return
     }
@@ -246,6 +259,10 @@ class Clipboard {
     historyItem.title = historyItem.generateTitle()
 
     onNewCopyHooks.forEach({ $0(historyItem) })
+
+    if !isSubscribed() {
+      Defaults[.dailyCopyCount] += 1
+    }
 
     // AI processing
     if Defaults[.aiEnabled],
@@ -403,5 +420,13 @@ class Clipboard {
     }
 
     return newContents
+  }
+
+  private func isSubscribed() -> Bool {
+    if Defaults[.isSubscribed] {
+      return true
+    }
+    guard let trialEndDate = Defaults[.trialEndDate] else { return false }
+    return Date() < trialEndDate
   }
 }

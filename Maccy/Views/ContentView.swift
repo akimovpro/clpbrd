@@ -41,6 +41,14 @@ struct ContentView: View {
         try? await appState.history.load()
       }
     }
+    .sheet(isPresented: $appState.showOnboarding, onDismiss: {
+      Defaults[.onboardingCompleted] = true
+    }) {
+      OnboardingView(isPresented: $appState.showOnboarding)
+    }
+    .sheet(isPresented: $appState.showSubscriptionView) {
+      SubscriptionView(isPresented: $appState.showSubscriptionView)
+    }
     .environment(appState)
     .environment(modifierFlags)
     .environment(\.scenePhase, scenePhase)

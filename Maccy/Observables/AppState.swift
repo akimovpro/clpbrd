@@ -20,6 +20,9 @@ final class AppState: @unchecked Sendable {
   var aiRequestRunning: Bool = false
 
   var scrollTarget: UUID?
+  var showOnboarding = !Defaults[.onboardingCompleted]
+  var showSubscriptionView = false
+
   var selection: UUID? {
     didSet {
       selectWithoutScrolling(selection)
@@ -206,6 +209,13 @@ final class AppState: @unchecked Sendable {
             toolbarIcon: NSImage.gearshape2!
           ) {
             AdvancedSettingsPane()
+          },
+          Settings.Pane(
+            identifier: .subscription,
+            title: NSLocalizedString("Title", tableName: "SubscriptionSettings", comment: ""),
+            toolbarIcon: NSImage(systemSymbolName: "creditcard", accessibilityDescription: "Subscription")!
+          ) {
+            SubscriptionSettingsPane()
           }
         ]
       )
