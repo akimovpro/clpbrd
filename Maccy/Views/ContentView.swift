@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import Defaults
 
 struct ContentView: View {
   @State private var appState = AppState.shared
@@ -41,38 +42,44 @@ struct ContentView: View {
         try? await appState.history.load()
       }
     }
-    .sheet(isPresented: $appState.showOnboarding, onDismiss: {
-      Defaults[.onboardingCompleted] = true
-    }) {
-      OnboardingView(isPresented: $appState.showOnboarding)
+    .sheet(isPresented: Binding(
+      get: { appState.showOnboarding },
+      set: { appState.showOnboarding = $0 }
+    )) {
+      OnboardingView(isPresented: Binding(
+        get: { appState.showOnboarding },
+        set: { appState.showOnboarding = $0 }
+      ))
     }
-    .sheet(isPresented: $appState.showSubscriptionView) {
-      SubscriptionView(isPresented: $appState.showSubscriptionView)
+    .sheet(isPresented: Binding(
+      get: { appState.showSubscriptionView },
+      set: { appState.showSubscriptionView = $0 }
+    )) {
+      SubscriptionView(isPresented: Binding(
+        get: { appState.showSubscriptionView },
+        set: { appState.showSubscriptionView = $0 }
+      ), fromOnboarding: false)
     }
     .environment(appState)
     .environment(modifierFlags)
     .environment(\.scenePhase, scenePhase)
-    // FloatingPanel is not a scene, so let's implement custom scenePhase..
-    .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) {
-      if let window = $0.object as? NSWindow,
+    .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) { _ in
+      if let window = NSApp.windows.first,
          let bundleIdentifier = Bundle.main.bundleIdentifier,
          window.identifier == NSUserInterfaceItemIdentifier(bundleIdentifier) {
         scenePhase = .active
       }
     }
-    .onReceive(NotificationCenter.default.publisher(for: NSWindow.didResignKeyNotification)) {
-      if let window = $0.object as? NSWindow,
+    .onReceive(NotificationCenter.default.publisher(for: NSWindow.didResignKeyNotification)) { _ in
+      if let window = NSApp.windows.first,
          let bundleIdentifier = Bundle.main.bundleIdentifier,
          window.identifier == NSUserInterfaceItemIdentifier(bundleIdentifier) {
         scenePhase = .background
       }
     }
-    .onReceive(NotificationCenter.default.publisher(for: NSPopover.willShowNotification)) {
-      if let popover = $0.object as? NSPopover {
-        // Prevent NSPopover from showing close animation when
-        // quickly toggling FloatingPanel while popover is visible.
+    .onReceive(NotificationCenter.default.publisher(for: NSPopover.willShowNotification)) { notification in
+      if let popover = notification.object as? NSPopover {
         popover.animates = false
-        // Prevent NSPopover from becoming first responder.
         popover.behavior = .semitransient
       }
     }

@@ -8,7 +8,7 @@ struct AdvancedSettingsPane: View {
         Text("IgnoreEvents", tableName: "AdvancedSettings")
       }.help(Text("IgnoreEventsTooltip", tableName: "AdvancedSettings"))
 
-      Defaults.Toggle(key: .clearHistoryOnQuit) {
+      Defaults.Toggle(key: .clearOnQuit) {
         Text("ClearHistoryOnQuit", tableName: "AdvancedSettings")
       }.help(Text("ClearHistoryOnQuitTooltip", tableName: "AdvancedSettings"))
 

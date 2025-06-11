@@ -3,6 +3,9 @@ import Defaults
 import Foundation
 import Settings
 import Observation
+import SwiftUI
+import KeyboardShortcuts
+import Sparkle
 
 @Observable
 final class AppState: @unchecked Sendable {

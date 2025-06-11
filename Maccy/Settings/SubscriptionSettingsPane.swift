@@ -15,7 +15,7 @@ struct SubscriptionSettingsPane: View {
       } else if let trialEndDate = Defaults[.trialEndDate], Date() < trialEndDate {
         Text("You are on a free trial.")
           .font(.headline)
-        Text("Trial ends on \(trialEndDate.formatted(date: .long, time: .short))")
+        Text("Trial ends on \(trialEndDate.formatted(date: .long, time: .shortened))")
         Button("Upgrade to Pro") {
           showSubscriptionView = true
         }
@@ -28,8 +28,14 @@ struct SubscriptionSettingsPane: View {
         }
       }
     }
-    .sheet(isPresented: $showSubscriptionView) {
-      SubscriptionView(isPresented: $showSubscriptionView)
+    .sheet(isPresented: Binding(
+      get: { showSubscriptionView },
+      set: { showSubscriptionView = $0 }
+    )) {
+      SubscriptionView(isPresented: Binding(
+        get: { showSubscriptionView },
+        set: { showSubscriptionView = $0 }
+      ), fromOnboarding: false)
     }
     .frame(width: 400, height: 200)
   }
