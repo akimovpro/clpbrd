@@ -14,7 +14,6 @@ class Clipboard {
   private let pasteboard = NSPasteboard.general
 
   private var timer: Timer?
-  private var captureNext = false
 
   private let dynamicTypePrefix = "dyn."
   private let microsoftSourcePrefix = "com.microsoft.ole.source."
@@ -143,7 +142,6 @@ class Clipboard {
   }
 
   func specialCopy() {
-    captureNext = true
     simulateCommandC()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
       self.checkForChangesInPasteboard()
@@ -171,10 +169,12 @@ class Clipboard {
   @objc
   @MainActor
   func checkForChangesInPasteboard() {
+    NSLog("checkForChangesInPasteboard: Checking for new clipboard content.")
     guard pasteboard.changeCount != changeCount else {
       return
     }
 
+    NSLog("checkForChangesInPasteboard: New content detected.")
     changeCount = pasteboard.changeCount
 
     if Defaults[.ignoreEvents] {
@@ -198,11 +198,6 @@ class Clipboard {
         Defaults[.dailyCopyCount] = 0
       }
     }
-
-    guard captureNext else {
-      return
-    }
-    captureNext = false
 
     // Reading types on NSPasteboard gives all the available
     // types - even the ones that are not present on the NSPasteboardItem.
@@ -269,6 +264,7 @@ class Clipboard {
        !Defaults[.openAIKey].isEmpty,
        !(pasteboard.types?.contains(.fromMaccy) ?? false) {
 
+      NSLog("checkForChangesInPasteboard: AI is enabled, attempting to process.")
       if let text = pasteboard.string(forType: .string),
          let videoID = YoutubeTranscriptFetcher.videoID(from: text),
          !Defaults[.supabaseKey].isEmpty {
@@ -283,6 +279,7 @@ class Clipboard {
             await MainActor.run {
               AppState.shared.aiRequestRunning = false
               Clipboard.shared.copy(result)
+              NSLog("checkForChangesInPasteboard: AI processing successful for YouTube transcript.")
               Notifier.notify(body: result.shortened(to: 100), sound: .write)
             }
           } catch {
@@ -304,6 +301,7 @@ class Clipboard {
             await MainActor.run {
               AppState.shared.aiRequestRunning = false
               Clipboard.shared.copy(result)
+              NSLog("checkForChangesInPasteboard: AI processing successful for text prompt.")
               Notifier.notify(body: result.shortened(to: 100), sound: .write)
             }
           } catch {
@@ -322,6 +320,7 @@ class Clipboard {
             await MainActor.run {
               AppState.shared.aiRequestRunning = false
               Clipboard.shared.copy(text)
+              NSLog("checkForChangesInPasteboard: AI processing successful for image recognition.")
             }
           } catch {
             await MainActor.run { AppState.shared.aiRequestRunning = false }

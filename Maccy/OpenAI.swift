@@ -45,6 +45,9 @@ struct OpenAI {
   }
 
   static func chat(prompt: String, text: String, apiKey: String) async throws -> String {
+    let maskedKey = apiKey.count > 14 ? "\(apiKey.prefix(10))...\(apiKey.suffix(4))" : "Invalid or too short key"
+    NSLog("OpenAI.chat: Making request with API key: \(maskedKey)")
+
     let url = URL(string: "https://api.openai.com/v1/chat/completions")!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
@@ -61,6 +64,10 @@ struct OpenAI {
 
     let (data, response) = try await URLSession.shared.data(for: request)
     guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+      if let http = response as? HTTPURLResponse {
+        let body = String(data: data, encoding: .utf8) ?? "Could not decode body"
+        NSLog("OpenAI API Error: Received status code \(http.statusCode). Body: \(body)")
+      }
       throw OpenAIError.invalidResponse
     }
     let decoded = try JSONDecoder().decode(ResponseBody.self, from: data)
@@ -68,6 +75,9 @@ struct OpenAI {
   }
 
   static func chat(prompt: String, imageData: Data, apiKey: String) async throws -> String {
+    let maskedKey = apiKey.count > 14 ? "\(apiKey.prefix(10))...\(apiKey.suffix(4))" : "Invalid or too short key"
+    NSLog("OpenAI.chat (vision): Making request with API key: \(maskedKey)")
+
     let url = URL(string: "https://api.openai.com/v1/chat/completions")!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
@@ -100,6 +110,10 @@ struct OpenAI {
 
     let (data, response) = try await URLSession.shared.data(for: request)
     guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+      if let http = response as? HTTPURLResponse {
+        let body = String(data: data, encoding: .utf8) ?? "Could not decode body"
+        NSLog("OpenAI API Error: Received status code \(http.statusCode). Body: \(body)")
+      }
       throw OpenAIError.invalidResponse
     }
     let decoded = try JSONDecoder().decode(ResponseBody.self, from: data)
