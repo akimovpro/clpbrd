@@ -7,6 +7,11 @@ import SwiftUI
 import KeyboardShortcuts
 import Sparkle
 
+// Define the Settings namespace explicitly
+enum SettingsNamespace {
+    static let onboarding = Settings.PaneIdentifier("onboarding")
+}
+
 @Observable
 final class AppState: @unchecked Sendable {
   static let shared = AppState()
@@ -158,7 +163,7 @@ final class AppState: @unchecked Sendable {
   }
 
   @MainActor
-  func openPreferences() { // swiftlint:disable:this function_body_length
+  func openPreferences() {
     if settingsWindowController == nil {
       settingsWindowController = SettingsWindowController(
         panes: [
@@ -219,6 +224,13 @@ final class AppState: @unchecked Sendable {
             toolbarIcon: NSImage(systemSymbolName: "creditcard", accessibilityDescription: "Subscription")!
           ) {
             SubscriptionSettingsPane()
+          },
+          Settings.Pane(
+            identifier: SettingsNamespace.onboarding,
+            title: NSLocalizedString("Title", tableName: "OnboardingSettings", comment: ""),
+            toolbarIcon: NSImage(systemSymbolName: "person.fill.questionmark", accessibilityDescription: "Onboarding")!
+          ) {
+            OnboardingView(isPresented: .constant(true))
           }
         ]
       )
